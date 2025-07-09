@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pg-backup-viewer
+spec:
+  containers:
+    - name: viewer
+      image: busybox
+      command: [ "sleep", "3600" ]  # mantiene el pod activo por 1 hora
+      volumeMounts:
+        - name: backup-storage
+          mountPath: /backups
+  volumes:
+    - name: backup-storage
+      persistentVolumeClaim:
+        claimName: pg-backup-pvc
+  restartPolicy: Never

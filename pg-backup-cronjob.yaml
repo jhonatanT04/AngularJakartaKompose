@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pg-backup
+spec:
+  schedule: "*/1 * * * *"  
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup
+              image: postgres:15
+              env:
+                - name: PGPASSWORD
+                  value: admin
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  pg_dump -h postgres -U admin midb > /backups/backup_$(date +\%Y\%m\%d_\%H\%M\%S).sql
+              volumeMounts:
+                - name: backup-storage
+                  mountPath: /backups
+          volumes:
+            - name: backup-storage
+              persistentVolumeClaim:
+                claimName: pg-backup-pvc
+          restartPolicy: OnFailure
