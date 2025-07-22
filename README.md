@@ -6,17 +6,29 @@ Este proyecto contiene una arquitectura desplegada en **Minikube** usando archiv
 
 .
 ├── angular-deployment.yaml
+
 ├── angular-service.yaml
+
 ├── jakarta-deployment.yaml
+
 ├── jakarta-service.yaml
+
 ├── postgres-deployment.yaml
+
 ├── postgres-service.yaml
+
 ├── pgdata-persistentvolumeclaim.yaml
+
 ├── pg-backup-cronjob.yaml
+
 ├── pg-backup-pvc.yaml
+
 ├── pg-backup-viewer.yaml
+
 ├── docker-compose.yaml
+
 └── jakarta-postgres-app/
+
 
 
 ## 🚀 Instrucciones de uso
@@ -70,36 +82,37 @@ Kubectl
 
 
 
-
-
-
 ### 📍 En el CASO de no encontrar las imagenes se puede realizar lo siguiente 
 ## Paso 1: Verifica si la imagen existe en Docker local
 
 docker images
+
 Si no aparece, necesitas construirla o descargarla.
 
 ## Paso 2A: Si tienes un Dockerfile, construye la imagen
 
 docker build -t mi-imagen:latest .
+
 Esto generará la imagen mi-imagen:latest localmente.
 
 ## Paso 2B: Si no tienes un Dockerfile, puedes descargar una imagen pública
 
 docker pull nginx:latest
+
 docker tag nginx:latest mi-imagen:latest
+
 Reemplaza nginx:latest con la imagen base que desees.
 
 ## Paso 3: Cargar la imagen en Minikube
 
-minikube image load mi-imagen:latest
+minikube image load mi-imagen:latest\
+
 Esto copia la imagen local al entorno interno de Minikube, para que los Pods puedan usarla sin necesidad de un registry externo.
 
 
 ## Puedes verificar que el Pod está usando tu imagen correctamente con:
 
-bash
-Copiar
-Editar
+
 kubectl get pods
+
 kubectl describe pod <nombre-del-pod>
