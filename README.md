@@ -4,7 +4,7 @@ Este proyecto contiene una arquitectura desplegada en **Minikube** usando archiv
 
 ## Estructura del Proyecto
 
-.
+
 ├── angular-deployment.yaml
 
 ├── angular-service.yaml
@@ -38,23 +38,28 @@ minikube start
 ### 2. Aplicar los archivos YAML
 
 kubectl apply -f .
+
 Asegúrate de estar en el directorio raíz del proyecto al ejecutar el comando anterior.
 
 ### 3. Verificar recursos
 
 
 kubectl get all
+
 ### 4. Acceder a los servicios
 Puedes exponer los servicios si estás usando Minikube local:
 
 minikube service angular-service
+
 minikube service jakarta-service
 
 ### 5. CronJob de backup
 El archivo pg-backup-cronjob.yaml define una tarea automática para respaldar la base de datos PostgreSQL. Puedes verificarla así:
 
 kubectl get cronjobs
+
 kubectl get jobs
+
 ## 🛠 Herramientas utilizadas
 Docker Compose: Configuración original del entorno
 
@@ -109,6 +114,15 @@ minikube image load mi-imagen:latest\
 
 Esto copia la imagen local al entorno interno de Minikube, para que los Pods puedan usarla sin necesidad de un registry externo.
 
+## Puedes verificar las imagenes entrado a minikuibe:
+
+Primero entramos al contenedor de minkube con :
+
+minikube ssh
+
+mostramos las imagenes con el comando :
+
+docker images 
 
 ## Puedes verificar que el Pod está usando tu imagen correctamente con:
 
