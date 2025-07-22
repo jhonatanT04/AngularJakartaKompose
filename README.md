@@ -67,3 +67,39 @@ Minikube
 Kompose
 
 Kubectl
+
+
+
+
+
+
+### 📍 En el CASO de no encontrar las imagenes se puede realizar lo siguiente 
+## Paso 1: Verifica si la imagen existe en Docker local
+
+docker images
+Si no aparece, necesitas construirla o descargarla.
+
+## Paso 2A: Si tienes un Dockerfile, construye la imagen
+
+docker build -t mi-imagen:latest .
+Esto generará la imagen mi-imagen:latest localmente.
+
+## Paso 2B: Si no tienes un Dockerfile, puedes descargar una imagen pública
+
+docker pull nginx:latest
+docker tag nginx:latest mi-imagen:latest
+Reemplaza nginx:latest con la imagen base que desees.
+
+## Paso 3: Cargar la imagen en Minikube
+
+minikube image load mi-imagen:latest
+Esto copia la imagen local al entorno interno de Minikube, para que los Pods puedan usarla sin necesidad de un registry externo.
+
+
+## Puedes verificar que el Pod está usando tu imagen correctamente con:
+
+bash
+Copiar
+Editar
+kubectl get pods
+kubectl describe pod <nombre-del-pod>
